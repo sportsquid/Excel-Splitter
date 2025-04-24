@@ -123,6 +123,7 @@ folder_to_export = tk.StringVar()
 progress = tk.IntVar()
 split_length = tk.IntVar()
 split_length.set(60000)
+trim_headers = tk.BooleanVar()
 
 #import file UI
 ttk.Label(mainframe, text="File to split:").grid(row=1, column=1)
@@ -137,9 +138,14 @@ export_entry.grid(column=1, row=4, sticky=tk.W)
 ttk.Button(mainframe, text="open", command=select_output_dir).grid(row=4, column=2)
 
 #Split length UI
-ttk.Label(mainframe, text="Lines per file:").grid(row=5, column=1, sticky=tk.W)
-length_entry = ttk.Entry(mainframe, width=25, textvariable=split_length)
-length_entry.grid(column=1, row=5, )
+length_containter = ttk.Frame(mainframe)
+length_containter.grid(row=5, column=1)
+ttk.Label(length_containter, text="Lines per file:").grid(row=0, column=0, sticky=tk.W)
+length_entry = ttk.Entry(length_containter, width=25, textvariable=split_length).grid(row=0, column=1, sticky=tk.W)
+
+
+#Trim Header UI
+ttk.Checkbutton(mainframe, text='Trim Header', variable=trim_headers).grid(row=5, column=2)
 
 #Start button UI
 ttk.Button(mainframe, text="Split", command=startSplit).grid(row=6, column=1)
