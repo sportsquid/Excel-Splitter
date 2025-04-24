@@ -44,7 +44,7 @@ def split():
     output_dir = folder_to_export.get()
 
     #define max rows
-    max_rows_per_file = 60000
+    max_rows_per_file = split_length.get()
     
     #zero out progress bar
     progress.set(1)
@@ -121,21 +121,30 @@ window.rowconfigure(0, weight=1)
 file_to_import = tk.StringVar()
 folder_to_export = tk.StringVar()
 progress = tk.IntVar()
+split_length = tk.IntVar()
+split_length.set(60000)
 
-
-
+#import file UI
 ttk.Label(mainframe, text="File to split:").grid(row=1, column=1)
 import_entry = ttk.Entry(mainframe, width=100, textvariable=file_to_import)
 import_entry.grid(column=1, row=2, sticky=tk.W)
 ttk.Button(mainframe, text="open", command=select_import_file).grid(row=2, column=2)
 
+#export file UI
 ttk.Label(mainframe, text="Output Directory:").grid(row=3, column=1)
 export_entry = ttk.Entry(mainframe, width=100, textvariable=folder_to_export)
 export_entry.grid(column=1, row=4, sticky=tk.W)
 ttk.Button(mainframe, text="open", command=select_output_dir).grid(row=4, column=2)
 
+#Split length UI
+ttk.Label(mainframe, text="Lines per file:").grid(row=5, column=1, sticky=tk.W)
+length_entry = ttk.Entry(mainframe, width=25, textvariable=split_length)
+length_entry.grid(column=1, row=5, )
 
+#Start button UI
 ttk.Button(mainframe, text="Split", command=startSplit).grid(row=6, column=1)
+
+#progress bar UI
 progress_bar = ttk.Progressbar(mainframe, orient="horizontal", length=500, mode="determinate", maximum=100, variable=progress).grid(row=7, column=1)
 
 window.mainloop()
